@@ -45,12 +45,35 @@
       height: 28px;
     }
 
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
     .navbar .nav-tag {
       font-size: 12px;
       color: rgba(255,255,255,0.5);
       background: rgba(255,255,255,0.06);
       padding: 3px 10px;
       border-radius: 12px;
+    }
+
+    .lang-btn {
+      font-size: 12px;
+      color: rgba(255,255,255,0.6);
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      padding: 3px 10px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .lang-btn:hover {
+      background: rgba(168,85,247,0.15);
+      border-color: rgba(168,85,247,0.3);
+      color: #d8b4fe;
     }
 
     /* 主内容 */
@@ -295,66 +318,6 @@
       transform: translateX(18px);
     }
 
-    /* 亏损比例滑块 */
-    .slider-group {
-      margin-bottom: 18px;
-    }
-
-    .slider-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 10px;
-    }
-
-    .slider-header label {
-      font-size: 13px;
-      color: rgba(255,255,255,0.55);
-      font-weight: 500;
-    }
-
-    .slider-value {
-      font-size: 20px;
-      font-weight: 700;
-      color: #f87171;
-    }
-
-    .slider-wrapper {
-      position: relative;
-      padding: 8px 0;
-    }
-
-    input[type="range"] {
-      -webkit-appearance: none;
-      appearance: none;
-      width: 100%;
-      height: 6px;
-      border-radius: 3px;
-      background: rgba(255,255,255,0.08);
-      outline: none;
-      cursor: pointer;
-    }
-
-    input[type="range"]::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      appearance: none;
-      width: 22px;
-      height: 22px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #a855f7, #ec4899);
-      cursor: pointer;
-      border: 3px solid #0a0a12;
-      box-shadow: 0 0 10px rgba(168,85,247,0.4);
-    }
-
-    .slider-labels {
-      display: flex;
-      justify-content: space-between;
-      font-size: 11px;
-      color: rgba(255,255,255,0.25);
-      margin-top: 4px;
-    }
-
     /* 快捷按钮 */
     .quick-btns {
       display: flex;
@@ -568,45 +531,46 @@
       </svg>
       Genius
     </div>
-    <span class="nav-tag">退款计算器</span>
+    <div class="nav-right">
+      <span class="nav-tag" data-i18n="navTag"></span>
+      <button class="lang-btn" id="langBtn" onclick="toggleLang()">EN</button>
+    </div>
   </nav>
 
   <div class="container">
-    <h1 class="page-title">退款亏损计算器</h1>
-    <p class="page-desc">估算可申请退款金额，对比交易亏损</p>
+    <h1 class="page-title" data-i18n="pageTitle"></h1>
+    <p class="page-desc" data-i18n="pageDesc"></p>
 
-    <div class="notice-bar">
-      计算公式来源于 Telegram 官方群 Mod 提供，本工具仅供大致测算参考，实际退款金额以官方审批结果为准。
-    </div>
+    <div class="notice-bar" data-i18n="notice"></div>
 
     <!-- 输入区域 -->
     <div class="calc-section">
-      <h2>参数输入</h2>
+      <h2 data-i18n="paramTitle"></h2>
 
       <div class="input-group">
-        <label>交易流水（USD）</label>
+        <label data-i18n="volumeLabel"></label>
         <div class="input-wrapper">
-          <input type="number" id="volume" placeholder="例如：1000000" oninput="calculate()">
+          <input type="number" id="volume" data-i18n-placeholder="volumePlaceholder" oninput="calculate()">
           <span class="unit">USD</span>
         </div>
         <div class="quick-btns" style="margin-top:10px">
-          <button class="quick-btn" onclick="setVolume(100000)">10万</button>
-          <button class="quick-btn" onclick="setVolume(500000)">50万</button>
-          <button class="quick-btn" onclick="setVolume(1000000)">100万</button>
-          <button class="quick-btn" onclick="setVolume(5000000)">500万</button>
-          <button class="quick-btn" onclick="setVolume(10000000)">1000万</button>
+          <button class="quick-btn" onclick="setVolume(100000)" data-i18n="vol100k"></button>
+          <button class="quick-btn" onclick="setVolume(500000)" data-i18n="vol500k"></button>
+          <button class="quick-btn" onclick="setVolume(1000000)" data-i18n="vol1m"></button>
+          <button class="quick-btn" onclick="setVolume(5000000)" data-i18n="vol5m"></button>
+          <button class="quick-btn" onclick="setVolume(10000000)" data-i18n="vol10m"></button>
         </div>
       </div>
 
       <div class="input-group">
-        <label>手续费比例</label>
+        <label data-i18n="feeRateLabel"></label>
         <div class="input-row">
           <select id="feeRate" onchange="calculate()">
-            <option value="0.0005">万5（0.05%）</option>
-            <option value="0.001">千1（0.1%）</option>
-            <option value="0.002">千2（0.2%）</option>
-            <option value="0.003">千3（0.3%）</option>
-            <option value="custom">自定义</option>
+            <option value="0.0005" data-i18n="feeOpt1"></option>
+            <option value="0.001" data-i18n="feeOpt2"></option>
+            <option value="0.002" data-i18n="feeOpt3"></option>
+            <option value="0.003" data-i18n="feeOpt4"></option>
+            <option value="custom" data-i18n="feeOptCustom"></option>
           </select>
           <div class="input-wrapper" id="customFeeWrapper" style="display:none">
             <input type="number" id="customFee" placeholder="0.0005" step="0.0001" oninput="calculate()">
@@ -616,61 +580,61 @@
 
       <div class="toggle-group">
         <div class="toggle-inline">
-          <span>是否使用邀请链接</span>
+          <span data-i18n="useReferral"></span>
           <label class="toggle-label">
             <input type="checkbox" id="useSelfRebate" checked onchange="calculate()">
             <span class="toggle-switch"></span>
           </label>
-          <span class="toggle-text" id="toggleText">是</span>
+          <span class="toggle-text" id="toggleText"></span>
         </div>
-        <div class="input-hint" id="rebateHint">使用邀请链接：可退款 = 手续费 × 0.65（已返佣 0.35 部分不退）</div>
+        <div class="input-hint" id="rebateHint"></div>
       </div>
 
       <div class="input-group">
-        <label>实际磨损总金额（USD）</label>
+        <label data-i18n="actualLossLabel"></label>
         <div class="input-wrapper">
-          <input type="number" id="actualLoss" placeholder="输入实际磨损金额" oninput="calculate()">
+          <input type="number" id="actualLoss" data-i18n-placeholder="actualLossPlaceholder" oninput="calculate()">
           <span class="unit">USD</span>
         </div>
-        <div class="input-hint">交易过程中实际产生的总磨损/亏损金额</div>
+        <div class="input-hint" data-i18n="actualLossHint"></div>
       </div>
     </div>
 
     <!-- 结果区域 -->
     <div class="result-section">
-      <h2>计算结果</h2>
+      <h2 data-i18n="resultTitle"></h2>
       <div class="result-grid">
         <div class="result-item">
-          <div class="result-label">总手续费</div>
+          <div class="result-label" data-i18n="totalFeeLabel"></div>
           <div class="result-value" id="totalFee">$0.00</div>
         </div>
         <div class="result-item">
-          <div class="result-label">可申请退款</div>
+          <div class="result-label" data-i18n="refundLabel"></div>
           <div class="result-value purple" id="refundAmount">$0.00</div>
-          <div class="result-sub" id="refundSub">手续费 × 0.65</div>
+          <div class="result-sub" id="refundSub"></div>
         </div>
         <div class="result-item">
-          <div class="result-label">退款比例</div>
+          <div class="result-label" data-i18n="refundRatioLabel"></div>
           <div class="result-value purple" id="coverRate">0%</div>
-          <div class="result-sub">可退款 ÷ 实际磨损</div>
+          <div class="result-sub" data-i18n="refundRatioSub"></div>
         </div>
         <div class="result-item" id="rebateItem" style="display:none">
-          <div class="result-label">邀请返佣（使用他人邀请码，此部分无法退回）</div>
+          <div class="result-label" data-i18n="rebateLabel"></div>
           <div class="result-value green" id="selfRebateAmount">$0.00</div>
-          <div class="result-sub">手续费 × 0.35</div>
+          <div class="result-sub" data-i18n="rebateSub"></div>
         </div>
         <div class="result-item highlight">
-          <div class="result-label">退款后仍亏损</div>
+          <div class="result-label" data-i18n="netLossLabel"></div>
           <div class="result-value" id="netResult">$0.00</div>
-          <div class="result-sub" id="netResultDesc">实际磨损 - 可退款金额</div>
+          <div class="result-sub" id="netResultDesc"></div>
         </div>
       </div>
 
       <!-- 对比条 -->
       <div class="comparison-bar">
         <div class="bar-label">
-          <span>可退款 <span id="barRefundPct">0%</span></span>
-          <span>仍亏损 <span id="barLossPct">0%</span></span>
+          <span><span data-i18n="barRefundText"></span> <span id="barRefundPct">0%</span></span>
+          <span><span data-i18n="barLossText"></span> <span id="barLossPct">0%</span></span>
         </div>
         <div class="bar-container">
           <div class="bar-refund" id="barRefund" style="width:50%"></div>
@@ -682,18 +646,18 @@
 
     <!-- 自返佣快捷计算 -->
     <div class="shortcut-card">
-      <h2>自返佣快速反推</h2>
-      <p class="desc">已知返佣金额，快速估算可申请退款</p>
+      <h2 data-i18n="shortcutTitle"></h2>
+      <p class="desc" data-i18n="shortcutDesc"></p>
       <div class="input-group">
-        <label>已获返佣金额（USD）</label>
+        <label data-i18n="shortcutInputLabel"></label>
         <div class="input-wrapper">
-          <input type="number" id="rebateAmount" placeholder="例如：175" oninput="calcRebate()">
+          <input type="number" id="rebateAmount" data-i18n-placeholder="shortcutPlaceholder" oninput="calcRebate()">
           <span class="unit">USD</span>
         </div>
       </div>
       <div class="shortcut-result">
         <div>
-          <div class="sr-label">可申请退款 ≈</div>
+          <div class="sr-label" data-i18n="shortcutResultLabel"></div>
           <div class="sr-value" id="rebateRefund">$0.00</div>
         </div>
       </div>
@@ -701,22 +665,142 @@
 
     <!-- 公式说明 -->
     <div class="formula-card">
-      <h3>计算公式</h3>
-      <div class="formula">
-        可申请退款 = 流水 × 手续费比例 × 0.65
-      </div>
-      <div class="formula-note">
-        稳定币对 / 千万KOGE 手续费比例 = 万5（0.0005）<br>
-        自返佣用户快速反推：可申请退款 ≈ 返佣金额 × 1.857
-      </div>
+      <h3 data-i18n="formulaTitle"></h3>
+      <div class="formula" data-i18n="formulaText"></div>
+      <div class="formula-note" id="formulaNote"></div>
     </div>
   </div>
 
-  <footer class="footer">
-    仅供估算参考，实际退款以 Genius 官方审批为准
-  </footer>
+  <footer class="footer" data-i18n="footer"></footer>
 
   <script>
+    // ===== i18n =====
+    const i18n = {
+      zh: {
+        navTag: '退款计算器',
+        pageTitle: '退款亏损计算器',
+        pageDesc: '估算可申请退款金额，对比交易亏损',
+        notice: '计算公式来源于 Telegram 官方群 Mod 提供，本工具仅供大致测算参考，实际退款金额以官方审批结果为准。',
+        paramTitle: '参数输入',
+        volumeLabel: '交易流水（USD）',
+        volumePlaceholder: '例如：1000000',
+        vol100k: '10万', vol500k: '50万', vol1m: '100万', vol5m: '500万', vol10m: '1000万',
+        feeRateLabel: '手续费比例',
+        feeOpt1: '万5（0.05%）', feeOpt2: '千1（0.1%）', feeOpt3: '千2（0.2%）', feeOpt4: '千3（0.3%）', feeOptCustom: '自定义',
+        useReferral: '是否使用邀请链接',
+        toggleYes: '是', toggleNo: '否',
+        rebateHintOn: '使用邀请链接：可退款 = 手续费 × 0.65（已返佣 0.35 部分不退）',
+        rebateHintOff: '未使用邀请链接：可退款 = 手续费 × 100%',
+        actualLossLabel: '实际磨损总金额（USD）',
+        actualLossPlaceholder: '输入实际磨损金额',
+        actualLossHint: '交易过程中实际产生的总磨损/亏损金额',
+        resultTitle: '计算结果',
+        totalFeeLabel: '总手续费',
+        refundLabel: '可申请退款',
+        refundSubOn: '手续费 × 0.65',
+        refundSubOff: '手续费 × 100%（未使用邀请链接）',
+        refundRatioLabel: '退款比例',
+        refundRatioSub: '可退款 ÷ 实际磨损',
+        rebateLabel: '邀请返佣（使用他人邀请码，此部分无法退回）',
+        rebateSub: '手续费 × 0.35',
+        netLossLabel: '退款后仍亏损',
+        netLossDescDefault: '实际磨损 - 可退款金额',
+        netLossDescStillLoss: (pct) => `退款可覆盖 ${pct}% 的磨损，仍需承担剩余亏损`,
+        netLossDescCovered: '退款完全覆盖磨损，还有盈余',
+        netLossDescExact: '退款刚好覆盖全部磨损',
+        netLossDescEmpty: '输入实际磨损金额查看最终结果',
+        barRefundText: '可退款',
+        barLossText: '仍亏损',
+        summaryLoss: (loss, refund, pct, remain) => `实际磨损 <strong>${loss}</strong>，可退 <strong>${refund}</strong>（${pct}%），仍亏 <strong style="color:#f87171">${remain}</strong>`,
+        summaryCover: (loss, refund, surplus) => `实际磨损 <strong>${loss}</strong>，可退 <strong>${refund}</strong>，完全覆盖并盈余 <strong style="color:#4ade80">${surplus}</strong>`,
+        shortcutTitle: '自返佣快速反推',
+        shortcutDesc: '已知返佣金额，快速估算可申请退款',
+        shortcutInputLabel: '已获返佣金额（USD）',
+        shortcutPlaceholder: '例如：175',
+        shortcutResultLabel: '可申请退款 ≈',
+        formulaTitle: '计算公式',
+        formulaText: '可申请退款 = 流水 × 手续费比例 × 0.65',
+        formulaNoteHtml: '稳定币对 / 千万KOGE 手续费比例 = 万5（0.0005）<br>自返佣用户快速反推：可申请退款 ≈ 返佣金额 × 1.857',
+        footer: '仅供估算参考，实际退款以 Genius 官方审批为准'
+      },
+      en: {
+        navTag: 'Refund Calculator',
+        pageTitle: 'Refund & Loss Calculator',
+        pageDesc: 'Estimate refund amount and compare against trading losses',
+        notice: 'The formula is provided by the official Telegram group Mod. This tool is for rough estimation only. Actual refund amounts are subject to official approval.',
+        paramTitle: 'Parameters',
+        volumeLabel: 'Trading Volume (USD)',
+        volumePlaceholder: 'e.g. 1000000',
+        vol100k: '100K', vol500k: '500K', vol1m: '1M', vol5m: '5M', vol10m: '10M',
+        feeRateLabel: 'Fee Rate',
+        feeOpt1: '0.05% (5 bps)', feeOpt2: '0.1% (10 bps)', feeOpt3: '0.2% (20 bps)', feeOpt4: '0.3% (30 bps)', feeOptCustom: 'Custom',
+        useReferral: 'Used referral link',
+        toggleYes: 'Yes', toggleNo: 'No',
+        rebateHintOn: 'With referral: Refund = Fee × 0.65 (0.35 already paid as referral commission)',
+        rebateHintOff: 'Without referral: Refund = Fee × 100%',
+        actualLossLabel: 'Actual Loss Amount (USD)',
+        actualLossPlaceholder: 'Enter actual loss amount',
+        actualLossHint: 'Total loss/slippage incurred during trading',
+        resultTitle: 'Results',
+        totalFeeLabel: 'Total Fees',
+        refundLabel: 'Eligible Refund',
+        refundSubOn: 'Fee × 0.65',
+        refundSubOff: 'Fee × 100% (no referral used)',
+        refundRatioLabel: 'Refund Ratio',
+        refundRatioSub: 'Refund ÷ Actual Loss',
+        rebateLabel: 'Referral Commission (cannot be refunded if using others\' referral code)',
+        rebateSub: 'Fee × 0.35',
+        netLossLabel: 'Remaining Loss After Refund',
+        netLossDescDefault: 'Actual Loss - Refund Amount',
+        netLossDescStillLoss: (pct) => `Refund covers ${pct}% of loss, remaining loss must be absorbed`,
+        netLossDescCovered: 'Refund fully covers the loss with surplus',
+        netLossDescExact: 'Refund exactly covers the total loss',
+        netLossDescEmpty: 'Enter actual loss amount to see the result',
+        barRefundText: 'Refundable',
+        barLossText: 'Remaining Loss',
+        summaryLoss: (loss, refund, pct, remain) => `Actual loss <strong>${loss}</strong>, refund <strong>${refund}</strong> (${pct}%), still losing <strong style="color:#f87171">${remain}</strong>`,
+        summaryCover: (loss, refund, surplus) => `Actual loss <strong>${loss}</strong>, refund <strong>${refund}</strong>, fully covered with <strong style="color:#4ade80">${surplus}</strong> surplus`,
+        shortcutTitle: 'Quick Rebate Estimate',
+        shortcutDesc: 'Estimate refund from known rebate amount',
+        shortcutInputLabel: 'Rebate Amount Received (USD)',
+        shortcutPlaceholder: 'e.g. 175',
+        shortcutResultLabel: 'Estimated Refund ≈',
+        formulaTitle: 'Formula',
+        formulaText: 'Refund = Volume × Fee Rate × 0.65',
+        formulaNoteHtml: 'Stablecoin pairs / 10M KOGE fee rate = 0.05% (0.0005)<br>Self-referral quick estimate: Refund ≈ Rebate × 1.857',
+        footer: 'For estimation only. Actual refund is subject to official Genius approval.'
+      }
+    };
+
+    let currentLang = 'zh';
+
+    function toggleLang() {
+      currentLang = currentLang === 'zh' ? 'en' : 'zh';
+      document.getElementById('langBtn').textContent = currentLang === 'zh' ? 'EN' : '中文';
+      document.documentElement.lang = currentLang;
+      document.title = currentLang === 'zh' ? 'Genius 退款计算器' : 'Genius Refund Calculator';
+      applyI18n();
+      calculate();
+      calcRebate();
+    }
+
+    function applyI18n() {
+      const t = i18n[currentLang];
+      // data-i18n text
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (t[key] !== undefined) el.textContent = t[key];
+      });
+      // data-i18n-placeholder
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const key = el.getAttribute('data-i18n-placeholder');
+        if (t[key] !== undefined) el.placeholder = t[key];
+      });
+      // formula note (contains HTML)
+      document.getElementById('formulaNote').innerHTML = t.formulaNoteHtml;
+    }
+
+    // ===== 逻辑 =====
     const volumeEl = document.getElementById('volume');
     const feeRateEl = document.getElementById('feeRate');
     const customFeeEl = document.getElementById('customFee');
@@ -750,6 +834,7 @@
     }
 
     function calculate() {
+      const t = i18n[currentLang];
       const volume = parseFloat(volumeEl.value) || 0;
       const feeRate = getFeeRate();
       const actualLoss = parseFloat(actualLossEl.value) || 0;
@@ -762,11 +847,10 @@
       // 显示/隐藏已返佣行
       document.getElementById('rebateItem').style.display = useSelfRebate ? '' : 'none';
       document.getElementById('selfRebateAmount').textContent = formatUSD(selfRebate);
-      document.getElementById('refundSub').textContent = useSelfRebate ? '手续费 × 0.65' : '手续费 × 100%（未使用邀请链接）';
-      document.getElementById('toggleText').textContent = useSelfRebate ? '是' : '否';
-      document.getElementById('rebateHint').textContent = useSelfRebate
-        ? '使用邀请链接：可退款 = 手续费 × 0.65（已返佣 0.35 部分不退）'
-        : '未使用邀请链接：可退款 = 手续费 × 100%';
+      document.getElementById('refundSub').textContent = useSelfRebate ? t.refundSubOn : t.refundSubOff;
+      document.getElementById('toggleText').textContent = useSelfRebate ? t.toggleYes : t.toggleNo;
+      document.getElementById('rebateHint').textContent = useSelfRebate ? t.rebateHintOn : t.rebateHintOff;
+
       // 退款比例 = 可退款 / 实际磨损
       const refundRatio = actualLoss > 0 ? (refund / actualLoss * 100) : 0;
       // 退款后仍亏损 = 实际磨损 - 可退款
@@ -779,30 +863,29 @@
       coverEl.textContent = actualLoss > 0 ? refundRatio.toFixed(1) + '%' : '-';
       coverEl.className = 'result-value ' + (refundRatio >= 100 ? 'green' : refundRatio >= 50 ? 'purple' : 'red');
 
-
       const netEl = document.getElementById('netResult');
       const descEl = document.getElementById('netResultDesc');
       if (actualLoss > 0) {
         if (netLoss > 0) {
           netEl.textContent = '-' + formatUSD(netLoss);
           netEl.className = 'result-value red';
-          descEl.textContent = `退款可覆盖 ${refundRatio.toFixed(1)}% 的磨损，仍需承担剩余亏损`;
+          descEl.textContent = t.netLossDescStillLoss(refundRatio.toFixed(1));
         } else if (netLoss < 0) {
           netEl.textContent = '+' + formatUSD(Math.abs(netLoss));
           netEl.className = 'result-value green';
-          descEl.textContent = '退款完全覆盖磨损，还有盈余';
+          descEl.textContent = t.netLossDescCovered;
         } else {
           netEl.textContent = '$0.00';
           netEl.className = 'result-value green';
-          descEl.textContent = '退款刚好覆盖全部磨损';
+          descEl.textContent = t.netLossDescExact;
         }
       } else {
         netEl.textContent = refund > 0 ? '+' + formatUSD(refund) : '$0.00';
         netEl.className = 'result-value ' + (refund > 0 ? 'green' : '');
-        descEl.textContent = '输入实际磨损金额查看最终结果';
+        descEl.textContent = t.netLossDescEmpty;
       }
 
-      // 对比条 — 比例与文字一致，基于 refundRatio
+      // 对比条
       const barRefundPct = Math.min(refundRatio, 100);
       const barLossPct = 100 - barRefundPct;
       document.getElementById('barRefund').style.width = barRefundPct + '%';
@@ -813,9 +896,9 @@
       const summaryEl = document.getElementById('summary');
       if (actualLoss > 0 && refund > 0) {
         if (netLoss > 0) {
-          summaryEl.innerHTML = `实际磨损 <strong>${formatUSD(actualLoss)}</strong>，可退 <strong>${formatUSD(refund)}</strong>（${refundRatio.toFixed(1)}%），仍亏 <strong style="color:#f87171">${formatUSD(netLoss)}</strong>`;
+          summaryEl.innerHTML = t.summaryLoss(formatUSD(actualLoss), formatUSD(refund), refundRatio.toFixed(1), formatUSD(netLoss));
         } else {
-          summaryEl.innerHTML = `实际磨损 <strong>${formatUSD(actualLoss)}</strong>，可退 <strong>${formatUSD(refund)}</strong>，完全覆盖并盈余 <strong style="color:#4ade80">${formatUSD(Math.abs(netLoss))}</strong>`;
+          summaryEl.innerHTML = t.summaryCover(formatUSD(actualLoss), formatUSD(refund), formatUSD(Math.abs(netLoss)));
         }
       } else {
         summaryEl.innerHTML = '';
@@ -829,6 +912,7 @@
     }
 
     // 初始化
+    applyI18n();
     calculate();
   </script>
 </body>
